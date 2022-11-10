@@ -67,10 +67,8 @@
                         let name = rows[i]['name']
                         let address = rows[i]['address']
                         let size = rows[i]['size_receive']
+                        let price = rows[i]['price']
 
-                        const regex = /[^0-9]/g;
-                        const result = size.replace(regex, "");
-                        const price = parseInt(result) * 500
 
                         console.log(name, address, size)
 

@@ -5,6 +5,7 @@ from pymongo import MongoClient
 client = MongoClient('mongodb+srv://test:sparta@cluster0.wd6li.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
 
+import re
 
 @app.route('/')
 def home():
@@ -16,11 +17,16 @@ def web_mars_post():
     address_receive = request.form['address_give']
     size_receive = request.form['size_give']
 
+    size = re.sub(r'[^0-9]', '', size_receive)
+    price = int(size) * 500
+
     doc = {
         'name': name_receive,
         'address': address_receive,
-        'size_receive': size_receive
+        'size_receive': size_receive,
+        'price' : price
     }
+
     db.mars.insert_one(doc)
 
     return jsonify({'msg': '주문완료!'})
